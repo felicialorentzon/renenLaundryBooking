@@ -353,16 +353,19 @@
 
         
         <div class="box">
-            <h1 id="confQuestion">Vill du boka tiden?</h1>
-            <p id="ConfirmTime"> Test </p>
+            <!--<form method="POST" action="/book">-->
+                <h1 id="confQuestion">Vill du boka tiden?</h1>
+                <p id="ConfirmTime" type="text" name="ConfirmTime"> Test </p>
+                
+                </br>
 
-            </br>
+                
 
+                </br>
+                
+                <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
+            <!--</form> -->
             <span onclick="document.getElementById('confirm').style.display='none'" class="close">&times;</span>
-
-            </br>
-
-            <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
            
         </div>
 
