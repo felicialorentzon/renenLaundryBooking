@@ -34,13 +34,31 @@
         border-collapse: collapse;
         background-color: white;
     }
-    button {
+    .button {
         font-size: 25px;
         border-radius: 100%;
         border: 2px;
         cursor: pointer;
         transition: 0.3s;
 
+    }
+    .logout{
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-family: Garamond, serif;
+        
+        
+        cursor: pointer;
+        transition: 0.3s;
+        position: absolute;
+        top: 8px;
+        right: 16px;
     }
     .button:hover{
         background-color: grey;
@@ -117,7 +135,9 @@
     
 </style>
 <body>
-    
+    <form method="POST" action="/logout">
+        <button onclick="Logout()" class="logout">Logga ut</button>
+    </form>
     <center>
         <h1 style = "font-size: 40px;">
             Bokningssystem
