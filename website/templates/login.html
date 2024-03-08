@@ -10,7 +10,7 @@
             background-repeat: no-repeat;
         }
 
-        input[type=number], input[type=password] { 
+        input[type=text], input[type=password] { 
             margin: 8px 0;
             width: 100%;
             padding: 12px 20px;
@@ -66,8 +66,8 @@
             </br>
             </br>
             <form method="POST" action="/login">
-                <label for="number"><b>Lägenhetsnummer</b></label>
-                <input id="apartment_nb" type="number" placeholder="Ange Lägenhetsnummer" name="apartment_nb" required>
+                <label for="apartment_nb"><b>Lägenhetsnummer</b></label>
+                <input id="apartment_nb" type="text" placeholder="Ange Lägenhetsnummer" name="apartment_nb" required>
                 <label for="pin"><b>Pinkod</b></label>
                 <input id="pin" type="password" placeholder="Ange Pinkod" name="pin" required>
                 <p id="message" style="color:red;"></p>
