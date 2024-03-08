@@ -30,7 +30,7 @@ def handle_login():
         flash('apartment_nb does not exist.', category='error')
     return redirect(url_for('auth.login'))
 
-@auth.route('/logout', methods=['GET'])
+@auth.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()
