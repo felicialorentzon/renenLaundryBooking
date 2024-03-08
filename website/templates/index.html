@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!-- Exempel för DSD400-kursen på JSON-AJAX -->
+<html>
+
+<head>
+    <title>Tvättstuga Renen</title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+
+<style>
+    body {
+        font-family: Garamond, serif;
+        background-color: white;
+    }
+    
+    table {
+        display:table;
+        margin-right:auto;
+        margin-left:auto;
+        width:100%;
+        font-family: Garamond, serif;
+    }
+    table, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        background-color: lightgreen;
+
+        
+        
+    }
+    table, th {
+        border: 0px solid black;
+        border-collapse: collapse;
+        background-color: white;
+    }
+    button {
+        font-size: 25px;
+        border-radius: 100%;
+        border: 2px;
+        cursor: pointer;
+        transition: 0.3s;
+
+    }
+    .button:hover{
+        background-color: grey;
+    }
+
+    body {
+        background-image: url('./reindeer-2144791_1920.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 29%;
+    }
+
+
+    .confirmbtn {
+        border-radius: 8px;
+        background-color: lightgreen;
+        font-family: Garamond, serif;
+    }
+    .confirmbtn:hover{
+        background-color: green;
+        cursor: pointer; 
+    }
+
+
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%;
+        overflow: auto; 
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+
+    .topright{
+        
+        position: absolute;
+        top: 8px;
+        right: 16px;
+    }
+
+    .close {
+        right: 25px;
+        
+
+        
+        color: black;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: red;
+        cursor: pointer;
+    }
+    .box {
+        padding: 30px;
+        margin-top: 10%;
+        background-color: white;
+        width: 40%;
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+
+
+
+    
+
+    
+</style>
+<body>
+    
+    <center>
+        <h1 style = "font-size: 40px;">
+            Bokningssystem
+
+            <hr style = " width: 50%; border: 1px solid black" />
+            Renen
+            <br />
+            <br />
+        </h1>
+
+        <table id="bokningssytem">
+            
+
+            <tr style="font-size: 25px">
+                <th id="day1">Måndag</th>
+                <th id="day2">Tisdag</th>
+                <th id="day3">Onsdag</th>
+                <th id="day4">Torsdag</th>
+                <th id="day5">Fredag</th>
+                <th id="day6">Lördag</th>
+                <th id="day7">Söndag</th>
+            </tr>
+
+
+            <tr style="height:110px; text-align: center; font-size: 20px">
+                <td id="cell11">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(11)" class="button" id="btn11">+</button>
+                </td>
+                <td id="cell12">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(12)" class="button" id="btn12">+</button>
+                </td>
+                <td id="cell13">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(13)" class="button" id="btn13">+</button>
+                </td>
+                <td id="cell14">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(14)" class="button" id="btn14">+</button>
+                </td>
+                <td id="cell15">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(15)" class="button" id="btn15">+</button>
+                </td>
+                <td id="cell16">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(16)" class="button" id="btn16">+</button>
+                </td>
+                <td id="cell17">
+                    8 - 11
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(17)" class="button" id="btn17">+</button>
+                </td>
+            </tr>
+
+
+
+            <tr style = "height:110px; text-align: center;  font-size: 20px">
+                <td id="cell21">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(21)" class="button" id="btn21">+</button>
+                </td>
+                <td id="cell22">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(22)" class="button" id="btn22">+</button>
+                </td>
+                <td id="cell23">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(23)" class="button" id="btn23">+</button>
+                </td>
+                <td id="cell24">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(24)" class="button" id="btn24">+</button>
+                </td>
+                <td id="cell25">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(25)" class="button" id="btn25">+</button>
+                </td>
+                <td id="cell26">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(26)" class="button" id="btn26">+</button>
+                </td>
+                <td id="cell27">
+                    11 - 14
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(27)" class="button" id="btn27">+</button>
+                </td>
+            </tr>
+
+
+            <tr style="height:110px; text-align: center;  font-size: 20px">
+                <td id="cell31">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(31)" class="button" id="btn31">+</button>
+                </td>
+                <td id="cell32">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(32)" class="button" id="btn32">+</button>
+                </td>
+                <td id="cell33">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(33)" class="button" id="btn33">+</button>
+                </td>
+                <td id="cell34">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(34)" class="button" id="btn34">+</button>
+                </td>
+                <td id="cell35">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(35)" class="button" id="btn35">+</button>
+                </td>
+                <td id="cell36">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(36)" class="button" id="btn36">+</button>
+                </td>
+                <td id="cell37">
+                    14 - 17
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(37)" class="button" id="btn37">+</button>
+                </td>
+            </tr>
+
+
+            <tr style="height:110px; text-align: center;  font-size: 20px">
+                <td id="cell41">
+                    17 - 20
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(41)" class="button" id="btn41">+</button>
+                </td>
+                <td id="cell42">
+                    17 - 20
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(42)" class="button" id="btn42">+</button>
+                </td>
+                <td id="cell43">
+                    17 - 20
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(43)" class="button" id="btn43">+</button>
+                </td>
+                <td id="cell44">
+                    17 - 20
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(44)" class="button" id="btn44">+</button>
+                </td>
+                <td id="cell45">
+                    17 - 20
+                    <br />
+                    <br />
+                    <button onclick="modifyConfWindow(45)" class="button" id="btn45">+</button>
+                </td>
+                <td id="cell46">
+                    17 - 20
+                    <br />
+                    <br />
+                    
+                    <button onclick="modifyConfWindow(46)" class="button" id="btn46">+</button>
+                </td > 
+                <td id="cell47">
+                    17 - 20
+                    <br />
+                    <br />
+
+                    <button onclick="modifyConfWindow(47)" class="button" id="btn47">+</button>
+                </td>
+            </tr >
+
+        </table >
+
+
+    <div id="confirm" class="modal">
+        
+
+
+        <div class="box">
+            <h1 id="confQuestion">Vill du boka tiden?</h1>
+            <p id="ConfirmTime"> Test </p>
+
+            </br>
+
+            <span onclick="document.getElementById('confirm').style.display='none'" class="close">&times;</span>
+
+            </br>
+            <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
+           
+        </div>
+
+    </div >
+
+
+
+    </center >
+
+
+
+
+
+
+
+
+    <script>
+        var currentid;
+
+
+        function modifyConfWindow(id) {
+            currentid = id;
+            console.log("current id:", currentid);
+
+            let btnId = 'btn' + currentid; //need these 2 rows to know what 
+            let cellid = 'cell' + currentid; //the if-else talks about
+
+            var firstDigit = String(id)[0];
+            var secondDigit = String(id)[1];
+
+            console.log("Pressed button id:", id);
+            console.log("First digit:", firstDigit);
+            console.log("Second digit:", secondDigit);
+
+            var timeSpan;
+            var day;
+
+            if (document.getElementById(btnId).innerHTML == 'X') {
+                document.getElementById('confirmbtn').innerHTML = 'Avboka';
+                document.getElementById('confQuestion').innerHTML = "Vill du avboka tiden?"
+            }
+            else {
+                document.getElementById('confirmbtn').innerHTML = 'Boka';
+                document.getElementById('confQuestion').innerHTML = "Vill du boka tiden?"
+            }
+
+            switch (firstDigit) {
+                case '1':
+                    timeSpan = '8-11';
+                    break;
+                case '2':
+                    timeSpan = '11-14';
+                    break;
+                case '3':
+                    timeSpan = '14-17';
+                    break;
+                case '4':
+                    timeSpan = '17-20';
+                    break;
+            }
+
+            switch (secondDigit) {
+                case '1':
+                    day = document.getElementById('day1').innerHTML;
+                    break;
+                case '2':
+                    day = document.getElementById('day2').innerHTML;
+                    break;
+                case '3':
+                    day = document.getElementById('day3').innerHTML;
+                    break;
+                case '4':
+                    day = document.getElementById('day4').innerHTML;
+                    break;
+                case '5':
+                    day = document.getElementById('day5').innerHTML;
+                    break;
+                case '6':
+                    day = document.getElementById('day6').innerHTML;
+                    break;
+                case '7':
+                    day = document.getElementById('day7').innerHTML;
+                    break;
+
+            }
+
+            document.getElementById('ConfirmTime').innerHTML = timeSpan + ' på ' + day;
+            document.getElementById('confirm').style.display = 'block';
+        }
+        
+        function bookTime() {
+            let btnId = 'btn' + currentid;
+            let cellid = 'cell' + currentid;
+
+            document.getElementById('confirm').style.display = 'none';
+            console.log('btnId symbol: ', document.getElementById(btnId).innerHTML)
+            if (document.getElementById(btnId).innerHTML == 'X') {
+                document.getElementById(btnId).innerHTML = '+';
+                document.getElementById(cellid).style = 'background-color: lightgreen';
+            }
+            else {
+                document.getElementById(btnId).innerHTML = 'X';
+                document.getElementById(cellid).style = 'background-color: grey';
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Garamond, serif;
+            background-size: cover;
+            background-attachment: fixed;
+            background-image: url('./reindeer-2023720_1280.jpg');
+            background-repeat: no-repeat;
+        }
+
+        input[type=number], input[type=password] { 
+            margin: 8px 0;
+            width: 100%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 1px solid lightgrey;
+
+        }
+
+        button {
+            background-color: lightgreen;
+            color: white;
+            cursor: pointer;
+            padding: 14px 20px;
+            border: none;
+            width: 100%;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin: 8px 0;
+        }
+
+        .button:hover {
+            background-color: green;
+        }
+
+        .box {
+            padding: 30px;
+            margin-top: 10%;
+            background-color: white;
+            width: 40%;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+    </style>
+    <title>Tvättstuga Renen</title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body>
+    <center>
+        <div class="box">
+            <h2>Inloggning Tvättstuga Renen</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul style="list-style: none;" class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            </br>
+            </br>
+            </br>
+            </br>
+            <form method="POST" action="/login">
+                <label for="number"><b>Lägenhetsnummer</b></label>
+                <input id="apartment_nb" type="number" placeholder="Ange Lägenhetsnummer" name="apartment_nb" required>
+                <label for="pin"><b>Pinkod</b></label>
+                <input id="pin" type="password" placeholder="Ange Pinkod" name="pin" required>
+                <p id="message" style="color:red;"></p>
+                <button onclick="Login()" class="button">Logga in</button>
+            </form>
+        </div>
+    </center>
+</body>
+</html>
