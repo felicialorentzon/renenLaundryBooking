@@ -53,7 +53,6 @@
         font-size: 16px;
         font-family: Garamond, serif;
         
-        
         cursor: pointer;
         transition: 0.3s;
         position: absolute;
@@ -70,17 +69,16 @@
         background-size: 100% 29%;
     }
 
-
     .confirmbtn {
         border-radius: 8px;
         background-color: lightgreen;
         font-family: Garamond, serif;
+        font-size: 30px;
     }
     .confirmbtn:hover{
         background-color: green;
         cursor: pointer; 
     }
-
 
     .modal {
         display: none; 
@@ -98,17 +96,15 @@
 
 
     .topright{
-        
         position: absolute;
         top: 8px;
         right: 16px;
     }
 
     .close {
-        right: 25px;
-        
-
-        
+        position:absolute;
+        top: 8px;
+        right: 16px;
         color: black;
         font-size: 35px;
         font-weight: bold;
@@ -120,6 +116,7 @@
         cursor: pointer;
     }
     .box {
+        position:relative;
         padding: 30px;
         margin-top: 10%;
         background-color: white;
@@ -136,7 +133,7 @@
 </style>
 <body>
     <form method="POST" action="/logout">
-        <button onclick="Logout()" class="logout">Logga ut</button>
+        <button class="logout">Logga ut</button>
     </form>
     <center>
         <h1 style = "font-size: 40px;">
@@ -354,7 +351,7 @@
     <div id="confirm" class="modal">
         
 
-
+        
         <div class="box">
             <h1 id="confQuestion">Vill du boka tiden?</h1>
             <p id="ConfirmTime"> Test </p>
@@ -364,6 +361,7 @@
             <span onclick="document.getElementById('confirm').style.display='none'" class="close">&times;</span>
 
             </br>
+
             <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
            
         </div>

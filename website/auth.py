@@ -21,8 +21,8 @@ def handle_login():
 
     if user:
         if pin and check_password_hash(user.pin, pin):
-            flash('Logged in successfully!', category='success')
             login_user(user, remember=True)
+            flash('', category='success') #remove potential past error messages
             return redirect(url_for('views.home'))
         else:
             flash('Incorrect pin, try again.', category='error')
@@ -35,3 +35,8 @@ def handle_login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+@auth.route('/book', methods=['POST'])
+def booking():
+    time_to_book = request.form.get('time_to_book')
+    apartment_nb = request.form.get('apartment_nb')

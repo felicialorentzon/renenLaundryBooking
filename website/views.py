@@ -1,5 +1,5 @@
 from . import db
-from .models import Note
+from .models import BookingTable
 from .models import User
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
@@ -23,7 +23,7 @@ def home():
         if note and len(note) < 1:
             flash('Note is too short!', category='error') 
         else:
-            new_note = Note(data=note, user_id=current_user.id)
+            new_note = BookingTable(data=note, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
@@ -34,7 +34,7 @@ def home():
 def delete_note():  
     note = json.loads(request.data)
     noteId = note['noteId']
-    note = Note.query.get(noteId)
+    note = BookingTable.query.get(noteId)
     if note:
         if note.user_id == current_user.id:
             db.session.delete(note)

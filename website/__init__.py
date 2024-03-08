@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
 
     from .models import User
-    from .models import Note
+    from .models import BookingTable
     
     # db requires flask app context to create tables
     with app.app_context():
@@ -36,9 +36,49 @@ def create_app():
             User(pin = generate_password_hash("8563"), apartment_nb = 1301),
             User(pin = generate_password_hash("2622"), apartment_nb = 1302),
         ]
+        booking_table_data = [
+            BookingTable(date_and_time = '15-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '15-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '15-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '15-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '16-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '16-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '16-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '16-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '17-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '17-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '17-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '17-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '18-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '18-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '18-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '18-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '19-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '19-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '19-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '19-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '20-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '20-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '20-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '20-03|17-20', apartment_nb = None),
+            BookingTable(date_and_time = '21-03|08-11', apartment_nb = None),
+            BookingTable(date_and_time = '21-03|11-14', apartment_nb = None),
+            BookingTable(date_and_time = '21-03|14-17', apartment_nb = None),
+            BookingTable(date_and_time = '21-03|17-20', apartment_nb = None)
+        ]
+
 
         # insert data
         for item in login_table_data:
+            db.session.add(item)
+        try:
+            # see if it successfully can insert
+            db.session.commit()
+        except Exception:
+            # otherwise rollback changes
+            db.session.rollback()
+
+        for item in booking_table_data:
             db.session.add(item)
         try:
             # see if it successfully can insert
