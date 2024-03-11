@@ -71,15 +71,14 @@
                 <label for="pin"><b>Pinkod</b></label>
                 <input id="pin" type="password" placeholder="Ange Pinkod" name="pin" required>
                 <p id="message" style="color:red;"></p> 
-                <button onclick="Prep()" class="button">Logga in</button>
+                <button onclick="SaveApartmentNumber()" class="button">Logga in</button>
             </form>
         </div>
     </center>
     <script>
-        function Prep(){
+        function SaveApartmentNumber(){
             document.cookie = 'apNr=' + document.getElementById('apartment_nb').value;
             print("cookies: " + document.cookie('apNr'));
-            Login();
         }
     </script>
 </body>

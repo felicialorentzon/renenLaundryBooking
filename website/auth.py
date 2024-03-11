@@ -1,4 +1,4 @@
-from .models import User
+from .models import user
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
@@ -17,11 +17,11 @@ def login():
 def handle_login():
     apartment_nb = request.form.get('apartment_nb')
     pin = request.form.get('pin')
-    user = db.session.execute(db.select(User).where(User.apartment_nb == apartment_nb)).scalar()
+    current_user = db.session.execute(db.select(user).where(user.apartment_nb == apartment_nb)).scalar()
 
-    if user:
-        if pin and check_password_hash(user.pin, pin):
-            login_user(user, remember=True)
+    if current_user:
+        if pin and check_password_hash(current_user.pin, pin):
+            login_user(current_user, remember=True)
             flash('', category='success') #remove potential past error messages
             return redirect(url_for('views.home'))
         else:
