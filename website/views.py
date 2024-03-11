@@ -1,7 +1,7 @@
 from . import db
 from .models import BookingTable
 from .models import User
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 import json
 
@@ -17,27 +17,8 @@ def test():
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST': 
-        note = request.form.get('note')
-
-        if note and len(note) < 1:
-            flash('Note is too short!', category='error') 
-        else:
-            new_note = BookingTable(data=note, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
-
+    #add refresh here so that server sends everyting in booking_table_data to javascript.
+    #javascript then needs to update all the dates and availability status according to db,
+    #which we have yet to create in index.html
     return render_template("/index.html", user=current_user)
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():  
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = BookingTable.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-    return jsonify({})

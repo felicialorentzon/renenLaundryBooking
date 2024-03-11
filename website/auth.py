@@ -35,13 +35,3 @@ def handle_login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
-
-#@auth.route('/book', methods=['POST'])
-#def booking():
-    #date = request.form.get('ConfirmTime')
-    ##Får None när jag försöker printa ut date i terminalen
-    ##Kan det vara att det är i en <p> och ej <input>??
-    ##Får kolla vad <from> egentligen tar med sig till servern
-    #print("Date: " + str(date))
-    #apartment_nb = request.form.get('apartment_nb') #fixa date först. 
-    #return redirect(url_for('views.home'))

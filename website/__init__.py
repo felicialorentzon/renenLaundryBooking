@@ -8,14 +8,16 @@ db = SQLAlchemy()
 DB_NAME = "laundry_booking.db"
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='', static_folder='static')
     app.config['SECRET_KEY'] = 'very secret key'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
     from .views import views
     from .auth import auth
+    from .booking import book
 
+    app.register_blueprint(book, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
@@ -36,6 +38,7 @@ def create_app():
             User(pin = generate_password_hash("8563"), apartment_nb = 1301),
             User(pin = generate_password_hash("2622"), apartment_nb = 1302),
         ]
+        #day-month|start time-end time
         booking_table_data = [
             BookingTable(date_and_time = '15-03|08-11', apartment_nb = None),
             BookingTable(date_and_time = '15-03|11-14', apartment_nb = None),

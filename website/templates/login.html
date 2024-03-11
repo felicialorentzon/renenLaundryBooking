@@ -70,10 +70,17 @@
                 <input id="apartment_nb" type="text" placeholder="Ange Lägenhetsnummer" name="apartment_nb" required>
                 <label for="pin"><b>Pinkod</b></label>
                 <input id="pin" type="password" placeholder="Ange Pinkod" name="pin" required>
-                <p id="message" style="color:red;"></p>
-                <button onclick="Login()" class="button">Logga in</button>
+                <p id="message" style="color:red;"></p> 
+                <button onclick="Prep()" class="button">Logga in</button>
             </form>
         </div>
     </center>
+    <script>
+        function Prep(){
+            document.cookie = 'apNr=' + document.getElementById('apartment_nb').value;
+            print("cookies: " + document.cookie('apNr'));
+            Login();
+        }
+    </script>
 </body>
 </html>

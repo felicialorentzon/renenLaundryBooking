@@ -353,10 +353,12 @@
 
         
         <div class="box">
-            <!--<form method="POST" action="/book">-->
+            <form method="POST" action="/book">
                 <h1 id="confQuestion">Vill du boka tiden?</h1>
                 <p id="ConfirmTime" type="text" name="ConfirmTime"> Test </p>
-                
+                <input id="inputConfirmTime" name="inputConfirmTime" style="visibility: hidden;"></input>
+                <input id="apNr" name="apNr" style="visibility: hidden;"></input>
+
                 </br>
 
                 
@@ -364,7 +366,7 @@
                 </br>
                 
                 <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
-            <!--</form> -->
+            </form>
             <span onclick="document.getElementById('confirm').style.display='none'" class="close">&times;</span>
            
         </div>
@@ -402,7 +404,7 @@
 
             var timeSpan;
             var day;
-
+            //Write out the right text (booking/canceling)
             if (document.getElementById(btnId).innerHTML == 'X') {
                 document.getElementById('confirmbtn').innerHTML = 'Avboka';
                 document.getElementById('confQuestion').innerHTML = "Vill du avboka tiden?"
@@ -411,7 +413,7 @@
                 document.getElementById('confirmbtn').innerHTML = 'Boka';
                 document.getElementById('confQuestion').innerHTML = "Vill du boka tiden?"
             }
-
+            //decypher date and time
             switch (firstDigit) {
                 case '1':
                     timeSpan = '8-11';
@@ -451,15 +453,17 @@
                     break;
 
             }
-
-            document.getElementById('ConfirmTime').innerHTML = timeSpan + ' på ' + day;
+            //display date and time + put hiden data in form
+            document.getElementById('ConfirmTime').innerHTML = document.getElementById('inputConfirmTime').value = timeSpan + ' på ' + day;
+            document.getElementById('apNr').value = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
             document.getElementById('confirm').style.display = 'block';
         }
         
         function bookTime() {
             let btnId = 'btn' + currentid;
             let cellid = 'cell' + currentid;
-
+            //ask server to make sure we are allowed to do this
+            //Change visuals to show that the time has been booked/canceled
             document.getElementById('confirm').style.display = 'none';
             console.log('btnId symbol: ', document.getElementById(btnId).innerHTML)
             if (document.getElementById(btnId).innerHTML == 'X') {
