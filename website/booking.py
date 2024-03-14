@@ -23,8 +23,25 @@ book = Blueprint('booking', __name__)
 def booking():
     #uppdatera databasen
     date = request.form.get('inputConfirmTime')
-    date_table_format = (date[8] + date[9] + date[10] + date[11] + date[12] + date[13]+ '|' + date[0] + date[1] + date[2] + date[3] + date[4]).strip()
+    print(date)
+    month_txt = date[13] + date[14] + date[15]
 
+    match month_txt:
+        case "Jan": month_nb = "01"
+        case "Feb": month_nb = "02"
+        case "Mar": month_nb = "03"
+        case "Apr": month_nb = "04"
+        case "Maj": month_nb = "05"
+        case "Jun": month_nb = "06"
+        case "Jul": month_nb = "07"
+        case "Aug": month_nb = "08"
+        case "Sep": month_nb = "09"
+        case "Okt": month_nb = "10"
+        case "Nov": month_nb = "11"
+        case "Dec": month_nb = "12"
+    
+    date_table_format = (date[10] + date[11] + "-" + month_nb + '|' + date[0] + date[1] + date[2] + date[3] + date[4]).strip()
+    print(date_table_format)
     try:
         apartment_nb = int(request.form.get('apNr').strip())
     except ValueError:
@@ -36,7 +53,7 @@ def booking():
 
     if res is None:
         # TODO: change to a response for the javascript
-        print("Error: The time slot does not exist.")
+        print(f'Error: The time slot f{res} does not exist.')
         return redirect(url_for('views.home'))
 
     if res.apartment_nb == apartment_nb:

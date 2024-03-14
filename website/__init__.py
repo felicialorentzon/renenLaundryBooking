@@ -75,7 +75,6 @@ def create_app():
         # insert data
         for item in login_table_data:
             db.session.add(item)
-            print(item.pin)
         try:
             # see if it successfully can insert
             db.session.commit()

@@ -13,17 +13,76 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <script type="text/javascript"> 
+    
+    <!--type="text/javascript"-->
+    <script> 
     async function updateBookingTable(){
-        const res = await fetch('/refresh')
-        if(!res.ok){
-            throw new Error('Network response was not ok')
+        const server_response = await fetch('/refresh');
+        if(!server_response.ok){
+            throw new Error('Network response was not ok');
         }
-        const data =  res.json()
-        .then(res => console.log(res))
-        console.log(data)
+        const server_data = await server_response.json();
+        console.log(server_data)
+
+        //update days
+        let day = 1;
+        for(let stime = 0; stime < 28; stime = stime+4){
+            day_str = 'day' + day;
+            displayed_day = server_data[stime].date_and_time.slice(0, 2);
+            month_number = server_data[stime].date_and_time.slice(3, 5);
+            console.log();
+
+            switch(month_number){
+                case '01':
+                    displayed_month = "Jan.";
+                    break;
+                case  '02':
+                    displayed_month = "Feb.";
+                    break;
+                case  '03':
+                    displayed_month = "Mar.";
+                    break;
+                case  '04':
+                    displayed_month = "Apr.";
+                    break;
+                case  '05':
+                    displayed_month = "Maj";
+                    break;
+                case  '06':
+                    displayed_month = "Jun.";
+                    break;
+                case  '07':
+                    displayed_month = "Jul.";
+                    break;
+                case  '08':
+                    displayed_month = "Aug.";
+                    break;
+                case  '09':
+                    displayed_month = "Sep.";
+                    break;
+                case  '10':
+                    displayed_month = "Okt.";
+                    break;
+                case  '11':
+                    displayed_month = "Nov.";
+                    break;
+                case  '12':
+                    displayed_month = "Dec.";
+            }
+            document.getElementById(day_str).innerHTML = displayed_day + " " + displayed_month;
+            day++;
+        }
+
+        //want to use this loop for checking if the cell is booked.
+        //if so, show it visually. 
+        for(let i = 0; i < 28; i++){
+            console.log(server_data[i]);
+        }
+
     }
-    window.onload = updateBookingTable();</script>
+    window.onload = updateBookingTable();
+    </script>
+
 </head>
 
 <style>
@@ -167,7 +226,7 @@
             
 
             <tr style="font-size: 25px">
-                <th id="day1">15-03</th>
+                <th id="day1">yorp</th>
                 <th id="day2">16-03</th>
                 <th id="day3">17-03</th>
                 <th id="day4">18-03</th>
@@ -458,7 +517,7 @@
 
             }
             //display date and time + put hiden data in form
-            document.getElementById('ConfirmTime').innerHTML = document.getElementById('inputConfirmTime').value = timeSpan + ' på ' + day;
+            document.getElementById('ConfirmTime').innerHTML = document.getElementById('inputConfirmTime').value = timeSpan +" den "  + day;
             document.getElementById('apNr').value = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
             document.getElementById('confirm').style.display = 'block';
         }
