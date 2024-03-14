@@ -23,3 +23,7 @@ def home():
 
     return render_template("/index.html", user=current_user)
 
+@views.route('/refresh', methods=['GET', 'POST'])
+@login_required
+def sendBookingData():
+    return 'hej'

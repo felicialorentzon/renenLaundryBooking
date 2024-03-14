@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- Exempel för DSD400-kursen på JSON-AJAX -->
+
 <html>
 
 <head>
@@ -149,13 +150,13 @@
             
 
             <tr style="font-size: 25px">
-                <th id="day1">Måndag</th>
-                <th id="day2">Tisdag</th>
-                <th id="day3">Onsdag</th>
-                <th id="day4">Torsdag</th>
-                <th id="day5">Fredag</th>
-                <th id="day6">Lördag</th>
-                <th id="day7">Söndag</th>
+                <th id="day1">15-03</th>
+                <th id="day2">16-03</th>
+                <th id="day3">17-03</th>
+                <th id="day4">18-03</th>
+                <th id="day5">19-03</th>
+                <th id="day6">20-03</th>
+                <th id="day7">21-03</th>
             </tr>
 
 
@@ -360,9 +361,6 @@
                 <input id="apNr" name="apNr" style="visibility: hidden;"></input>
 
                 </br>
-
-                
-
                 </br>
                 
                 <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
@@ -462,6 +460,7 @@
         function bookTime() {
             let btnId = 'btn' + currentid;
             let cellid = 'cell' + currentid;
+
             //ask server to make sure we are allowed to do this
             //Change visuals to show that the time has been booked/canceled
             document.getElementById('confirm').style.display = 'none';
@@ -474,6 +473,11 @@
                 document.getElementById(btnId).innerHTML = 'X';
                 document.getElementById(cellid).style = 'background-color: grey';
             }
+        }
+
+        function updateBookingTable(){
+            fetch('http://127.0.0.1:5000/refresh')
+            .then(res => console.log(res))
         }
 
 
