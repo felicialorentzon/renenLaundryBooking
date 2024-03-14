@@ -1,39 +1,59 @@
 from flask import Blueprint, request, redirect, url_for
 from . import db
-from sqlalchemy import text
 from .models import booking_table
 
 book = Blueprint('booking', __name__)
+
+# @book.route('/hahalol')
+# def hahalol():
+#    return json.dumps(db.session.query(booking_table).all())
+#
+# async function fetchHaha() {
+#     const res = await fetch('/hahalol')
+#     // error handling
+#     if (!res.ok) {
+#         throw new Error('Network response was not ok')
+#     }
+#     // parse the response
+#     const data =  res.json()
+#     console.log(data)
+# }
 
 @book.route('/book', methods=['GET', 'POST'])
 def booking():
     #uppdatera databasen
     date = request.form.get('inputConfirmTime')
-    date_table_format = text(date[8] + date[9] + date[10] + date[11] + date[12] + date[13]+ '|' + date[0] + date[1] + date[2] + date[3] + date[4])
-    apartment_nb = request.form.get('apNr')
-    print("Apartment number: " + str(apartment_nb))
-    print("Date: " + str(date))
-    #print(db.Query(db.column(date_table_format) + "from booking_table"))
-    #print(db.Query.get_or_404(date_table_format))
-    #print(db.Query.all(book))#db.session.execute(db.text(f'select {date_table_format} from booking_table')))
-    db_request = db.session.execute(db.select(date_table_format))
-    print("db_request: " + str(db_request))
-    for row in db_request:
-        #substring ta bort 1 fram 2 bak.
-        if(row == -3):
-            print("ok")
-        print("row: " + str(row))
-        #print("row.index(): " + str(row.index(0)))
-        #print("row.count(): " + str(row.count()))
+    date_table_format = (date[8] + date[9] + date[10] + date[11] + date[12] + date[13]+ '|' + date[0] + date[1] + date[2] + date[3] + date[4]).strip()
 
-    
-    print(db_request.mappings().all()) #.order_by(date_table_format.apartment_nb)).scalars())
-    print(db_request.mappings())
+    try:
+        apartment_nb = int(request.form.get('apNr').strip())
+    except ValueError:
+        # TODO: change to a response for the javascript
+        print("Error: The apartment number is not a number.")
+        return redirect(url_for('views.home'))
+        
+    res = db.session.query(booking_table).filter(booking_table.date_and_time == date_table_format).first()
 
-    users = db.session.execute(db.select(booking_table).order_by(booking_table.apartment_nb)).scalars() #så man ska fråga (SQL)
-    #for cuser in users:
-        #print(cuser.apartment_nb)
-    
-    #print(db_request.values())
+    if res is None:
+        # TODO: change to a response for the javascript
+        print("Error: The time slot does not exist.")
+        return redirect(url_for('views.home'))
+
+    if res.apartment_nb == apartment_nb:
+        res.apartment_nb = None
+        db.session.commit()
+        # TODO: change to a response for the javascript
+        print("Booking cancelled!")
+        return redirect(url_for('views.home'))
+
+    if res.apartment_nb is not None:
+        # TODO: change to a response for the javascript
+        print("Error: The time slot is already booked. Please choose another time.")
+        return redirect(url_for('views.home'))
+
+    # TODO: change to a response for the javascript
+    print("Booking successful!")
+    res.apartment_nb = apartment_nb
+    db.session.commit()
 
     return redirect(url_for('views.home'))
