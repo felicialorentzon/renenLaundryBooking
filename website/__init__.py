@@ -3,6 +3,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from werkzeug.security import generate_password_hash
+from passlib.hash import sha256_crypt
 
 db = SQLAlchemy()
 DB_NAME = "laundry_booking.db"
@@ -31,12 +32,12 @@ def create_app():
 
         # create data to later insert
         login_table_data = [
-            user(pin = generate_password_hash("2748"), apartment_nb = 1101),
-            user(pin = generate_password_hash("3953"), apartment_nb = 1102),
-            user(pin = generate_password_hash("8462"), apartment_nb = 1201),
-            user(pin = generate_password_hash("5792"), apartment_nb = 1202),
-            user(pin = generate_password_hash("8563"), apartment_nb = 1301),
-            user(pin = generate_password_hash("2622"), apartment_nb = 1302),
+            user(pin = sha256_crypt.encrypt("2748"), apartment_nb = 1101),
+            user(pin = sha256_crypt.encrypt("3953"), apartment_nb = 1102),
+            user(pin = sha256_crypt.encrypt("8462"), apartment_nb = 1201),
+            user(pin = sha256_crypt.encrypt("5792"), apartment_nb = 1202),
+            user(pin = sha256_crypt.encrypt("8563"), apartment_nb = 1301),
+            user(pin = sha256_crypt.encrypt("2622"), apartment_nb = 1302),
         ]
         #day-month|start time-end time
         booking_table_data = [
@@ -74,6 +75,7 @@ def create_app():
         # insert data
         for item in login_table_data:
             db.session.add(item)
+            print(item.pin)
         try:
             # see if it successfully can insert
             db.session.commit()

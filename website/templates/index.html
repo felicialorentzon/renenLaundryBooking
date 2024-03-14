@@ -13,6 +13,17 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <script type="text/javascript"> 
+    async function updateBookingTable(){
+        const res = await fetch('/refresh')
+        if(!res.ok){
+            throw new Error('Network response was not ok')
+        }
+        const data =  res.json()
+        .then(res => console.log(res))
+        console.log(data)
+    }
+    window.onload = updateBookingTable();</script>
 </head>
 
 <style>
@@ -470,10 +481,7 @@
             }
         }
 
-        function updateBookingTable(){
-            fetch('http://127.0.0.1:5000/refresh')
-            .then(res => console.log(res))
-        }
+        
 </script>
 
 </body>

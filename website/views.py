@@ -26,4 +26,4 @@ def home():
 @views.route('/refresh', methods=['GET', 'POST'])
 @login_required
 def sendBookingData():
-    return 'hej'
+    return json.dumps(db.session.query(booking_table).all())
