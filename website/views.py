@@ -10,8 +10,8 @@ views = Blueprint('views', __name__)
 @views.route('/test', methods=['GET'])
 def test():
     users = db.session.execute(db.select(user).order_by(user.apartment_nb)).scalars() #så man ska fråga (SQL)
-    for user in users:
-        print(user.apartment_nb)
+    for cuser in users:
+        print(cuser.apartment_nb)
     return render_template("index.html")
 
 @views.route('/', methods=['GET', 'POST'])
