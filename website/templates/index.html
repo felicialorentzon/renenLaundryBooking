@@ -75,13 +75,14 @@
         day_counter = time_span_counter = 1;
         my_apartment_number = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
         for(let i = 1; i <= 28; i++){
-            if(server_data[i - 1].apartment_nb == my_apartment_number){
-                document.getElementById("btn" + time_span_counter + day_counter).innerHTML = 'X';
+            if(server_data[i - 1].apartment_nb != null){
                 document.getElementById("cell" + time_span_counter + day_counter).style = 'background-color: grey';
-            }
-            else if(server_data[i - 1].apartment_nb != null){
-                document.getElementById("btn" + time_span_counter + day_counter).style = 'visibility: hidden;';
-                document.getElementById("cell" + time_span_counter + day_counter).style = 'background-color: grey';
+                if(server_data[i - 1].apartment_nb == my_apartment_number){
+                    document.getElementById("btn" + time_span_counter + day_counter).innerHTML = 'X';
+                }
+                else{
+                    document.getElementById("btn" + time_span_counter + day_counter).style = 'visibility: hidden;';
+                }
             }
             
             time_span_counter++;
