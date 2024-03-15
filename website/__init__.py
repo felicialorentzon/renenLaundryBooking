@@ -32,27 +32,15 @@ def create_app():
 
         # create data to later insert
         login_table_data = [
-            user(pin = sha256_crypt.encrypt("2748"), apartment_nb = 1101),
-            user(pin = sha256_crypt.encrypt("3953"), apartment_nb = 1102),
-            user(pin = sha256_crypt.encrypt("8462"), apartment_nb = 1201),
-            user(pin = sha256_crypt.encrypt("5792"), apartment_nb = 1202),
-            user(pin = sha256_crypt.encrypt("8563"), apartment_nb = 1301),
-            user(pin = sha256_crypt.encrypt("2622"), apartment_nb = 1302),
+            user(pin = generate_password_hash("2748", method='pbkdf2:sha256'), apartment_nb = 1101),
+            user(pin = generate_password_hash("3953", method='pbkdf2:sha256'), apartment_nb = 1102),
+            user(pin = generate_password_hash("8462", method='pbkdf2:sha256'), apartment_nb = 1201),
+            user(pin = generate_password_hash("5792", method='pbkdf2:sha256'), apartment_nb = 1202),
+            user(pin = generate_password_hash("8563", method='pbkdf2:sha256'), apartment_nb = 1301),
+            user(pin = generate_password_hash("2622", method='pbkdf2:sha256'), apartment_nb = 1302),
         ]
         #day-month|start time-end time
         booking_table_data = [
-            booking_table(date_and_time = '15-03|08-11', apartment_nb = None),
-            booking_table(date_and_time = '15-03|11-14', apartment_nb = None),
-            booking_table(date_and_time = '15-03|14-17', apartment_nb = None),
-            booking_table(date_and_time = '15-03|17-20', apartment_nb = None),
-            booking_table(date_and_time = '16-03|08-11', apartment_nb = None),
-            booking_table(date_and_time = '16-03|11-14', apartment_nb = None),
-            booking_table(date_and_time = '16-03|14-17', apartment_nb = None),
-            booking_table(date_and_time = '16-03|17-20', apartment_nb = None),
-            booking_table(date_and_time = '17-03|08-11', apartment_nb = None),
-            booking_table(date_and_time = '17-03|11-14', apartment_nb = None),
-            booking_table(date_and_time = '17-03|14-17', apartment_nb = None),
-            booking_table(date_and_time = '17-03|17-20', apartment_nb = None),
             booking_table(date_and_time = '18-03|08-11', apartment_nb = None),
             booking_table(date_and_time = '18-03|11-14', apartment_nb = None),
             booking_table(date_and_time = '18-03|14-17', apartment_nb = None),
@@ -68,7 +56,19 @@ def create_app():
             booking_table(date_and_time = '21-03|08-11', apartment_nb = None),
             booking_table(date_and_time = '21-03|11-14', apartment_nb = None),
             booking_table(date_and_time = '21-03|14-17', apartment_nb = None),
-            booking_table(date_and_time = '21-03|17-20', apartment_nb = None)
+            booking_table(date_and_time = '21-03|17-20', apartment_nb = None),
+            booking_table(date_and_time = '22-03|08-11', apartment_nb = None),
+            booking_table(date_and_time = '22-03|11-14', apartment_nb = None),
+            booking_table(date_and_time = '22-03|14-17', apartment_nb = None),
+            booking_table(date_and_time = '22-03|17-20', apartment_nb = None),
+            booking_table(date_and_time = '23-03|08-11', apartment_nb = None),
+            booking_table(date_and_time = '23-03|11-14', apartment_nb = None),
+            booking_table(date_and_time = '23-03|14-17', apartment_nb = None),
+            booking_table(date_and_time = '23-03|17-20', apartment_nb = None),
+            booking_table(date_and_time = '24-03|08-11', apartment_nb = None),
+            booking_table(date_and_time = '24-03|11-14', apartment_nb = None),
+            booking_table(date_and_time = '24-03|14-17', apartment_nb = None),
+            booking_table(date_and_time = '24-03|17-20', apartment_nb = None)
         ]
 
 
