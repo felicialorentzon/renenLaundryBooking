@@ -4,21 +4,6 @@ from .models import booking_table
 
 book = Blueprint('booking', __name__)
 
-# @book.route('/hahalol')
-# def hahalol():
-#    return json.dumps(db.session.query(booking_table).all())
-#
-# async function fetchHaha() {
-#     const res = await fetch('/hahalol')
-#     // error handling
-#     if (!res.ok) {
-#         throw new Error('Network response was not ok')
-#     }
-#     // parse the response
-#     const data =  res.json()
-#     console.log(data)
-# }
-
 @book.route('/book', methods=['GET', 'POST'])
 def booking():
     #uppdatera databasen
@@ -45,32 +30,26 @@ def booking():
     try:
         apartment_nb = int(request.form.get('apNr').strip())
     except ValueError:
-        # TODO: change to a response for the javascript
         print("Error: The apartment number is not a number.")
         return redirect(url_for('views.home'))
         
-    res = db.session.query(booking_table).filter(booking_table.date_and_time == date_table_format).first()
+    user_from_database = db.session.query(booking_table).filter(booking_table.date_and_time == date_table_format).first()
 
-    if res is None:
-        # TODO: change to a response for the javascript
-        print(f'Error: The time slot f{res} does not exist.')
+    if user_from_database is None:
+        print(f'Error: The time slot f{user_from_database} does not exist.')
         return redirect(url_for('views.home'))
 
-    if res.apartment_nb == apartment_nb:
-        res.apartment_nb = None
+    if user_from_database.apartment_nb == apartment_nb:
+        user_from_database.apartment_nb = None
         db.session.commit()
-        # TODO: change to a response for the javascript
         print("Booking cancelled!")
         return redirect(url_for('views.home'))
 
-    if res.apartment_nb is not None:
-        # TODO: change to a response for the javascript
+    if user_from_database.apartment_nb is not None:
         print("Error: The time slot is already booked. Please choose another time.")
         return redirect(url_for('views.home'))
-
-    # TODO: change to a response for the javascript
     print("Booking successful!")
-    res.apartment_nb = apartment_nb
+    user_from_database.apartment_nb = apartment_nb
     db.session.commit()
 
     return redirect(url_for('views.home'))

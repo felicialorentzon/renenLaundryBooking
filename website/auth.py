@@ -6,6 +6,7 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+#Route for the login page and the redirect if the login succeeds 
 @auth.route('/login', methods=['GET'])
 def login():
     if current_user.is_authenticated:
@@ -30,6 +31,7 @@ def handle_login():
         flash('Lägenhetsnumret finns inte, vänligen ange korrekt nummer.', category='error')
     return redirect(url_for('auth.login'))
 
+#Handle the logout
 @auth.route('/logout', methods=['POST'])
 @login_required
 def logout():

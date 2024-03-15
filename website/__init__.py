@@ -1,13 +1,13 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 from werkzeug.security import generate_password_hash
-from passlib.hash import sha256_crypt
 
+#creates the database
 db = SQLAlchemy()
 DB_NAME = "laundry_booking.db"
 
+#creates the application
 def create_app():
     app = Flask(__name__, static_url_path='', static_folder='static')
     app.config['SECRET_KEY'] = 'very secret key'
