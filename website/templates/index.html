@@ -28,7 +28,7 @@
         let day = 1;
         for(let stime = 0; stime < 28; stime = stime+4){
             day_str = 'day' + day;
-            displayed_day = server_data[stime].date_and_time.slice(0, 2);
+            day_nb = server_data[stime].date_and_time.slice(0, 2);
             month_number = server_data[stime].date_and_time.slice(3, 5);
             console.log();
 
@@ -69,16 +69,28 @@
                 case  '12':
                     displayed_month = "Dec.";
             }
-            document.getElementById(day_str).innerHTML = displayed_day + " " + displayed_month;
+            document.getElementById(day_str).innerHTML = day_nb + " " + displayed_month;
             day++;
         }
 
-        //want to use this loop for checking if the cell is booked.
-        //if so, show it visually. 
-        for(let i = 0; i < 28; i++){
-            console.log(server_data[i]);
+        day = time = 1;
+        for(let i = 1; i <= 28; i++){
+            if(parseInt(server_data[i - 1].apartment_nb) == document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8]){
+                console.log("Booked: ", "cell" + time + day)
+                document.getElementById("btn" + time + day).innerHTML = 'X';
+                document.getElementById("cell" + time + day).style = 'background-color: grey';
+            }
+            else if(server_data[i - 1].apartment_nb != null){
+                document.getElementById("btn" + time + day).style = 'visibility: hidden;';
+                document.getElementById("cell" + time + day).style = 'background-color: grey';
+            }
+            
+            time++;
+            if(i % 4 == 0){
+                day++;
+                time = 1;
+            }
         }
-
     }
     window.onload = updateBookingTable();
     </script>
@@ -439,7 +451,7 @@
                 </br>
                 </br>
                 
-                <button onclick ="bookTime()"class="confirmbtn" id="confirmbtn">Boka</button>
+                <button class="confirmbtn" id="confirmbtn">Boka</button>
             </form>
             <span onclick="document.getElementById('confirm').style.display='none'" class="close">&times;</span>
            
@@ -521,25 +533,6 @@
             document.getElementById('apNr').value = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
             document.getElementById('confirm').style.display = 'block';
         }
-        
-        function bookTime() {
-            let btnId = 'btn' + currentid;
-            let cellid = 'cell' + currentid;
-
-            //ask server to make sure we are allowed to do this
-            //Change visuals to show that the time has been booked/canceled
-            document.getElementById('confirm').style.display = 'none';
-            console.log('btnId symbol: ', document.getElementById(btnId).innerHTML)
-            if (document.getElementById(btnId).innerHTML == 'X') {
-                document.getElementById(btnId).innerHTML = '+';
-                document.getElementById(cellid).style = 'background-color: lightgreen';
-            }
-            else {
-                document.getElementById(btnId).innerHTML = 'X';
-                document.getElementById(cellid).style = 'background-color: grey';
-            }
-        }
-
         
 </script>
 
