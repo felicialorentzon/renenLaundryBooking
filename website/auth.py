@@ -25,9 +25,9 @@ def handle_login():
             flash('', category='success') #remove potential past error messages
             return redirect(url_for('views.home'))
         else:
-            flash('Incorrect pin, try again.', category='error')
+            flash('Felaktig PIN-kod, försök igen.', category='error')
     else:
-        flash('apartment_nb does not exist.', category='error')
+        flash('Lägenhetsnumret finns inte, vänligen ange korrekt nummer.', category='error')
     return redirect(url_for('auth.login'))
 
 @auth.route('/logout', methods=['POST'])
