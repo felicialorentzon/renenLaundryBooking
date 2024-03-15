@@ -14,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     
-    <!--type="text/javascript"-->
     <script> 
     async function updateBookingTable(){
         const server_response = await fetch('/refresh');
@@ -24,13 +23,12 @@
         const server_data = await server_response.json();
         console.log(server_data)
 
-        //update days
-        let day = 1;
-        for(let stime = 0; stime < 28; stime = stime+4){
-            day_str = 'day' + day;
-            day_nb = server_data[stime].date_and_time.slice(0, 2);
-            month_number = server_data[stime].date_and_time.slice(3, 5);
-            console.log();
+        //update day titles (dates)
+        let day_counter = 1;
+        for(let cell = 0; cell < 28; cell = cell+4){
+            day_id = 'day' + day_counter;
+            day_nb = server_data[cell].date_and_time.slice(0, 2);
+            month_number = server_data[cell].date_and_time.slice(3, 5);
 
             switch(month_number){
                 case '01':
@@ -69,26 +67,27 @@
                 case  '12':
                     displayed_month = "Dec.";
             }
-            document.getElementById(day_str).innerHTML = day_nb + " " + displayed_month;
-            day++;
+            document.getElementById(day_id).innerHTML = day_nb + " " + displayed_month;
+            day_counter++;
         }
 
-        day = time = 1;
+        //update cells
+        day_counter = time_span_counter = 1;
+        my_apartment_number = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
         for(let i = 1; i <= 28; i++){
-            if(parseInt(server_data[i - 1].apartment_nb) == document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8]){
-                console.log("Booked: ", "cell" + time + day)
-                document.getElementById("btn" + time + day).innerHTML = 'X';
-                document.getElementById("cell" + time + day).style = 'background-color: grey';
+            if(server_data[i - 1].apartment_nb == my_apartment_number){
+                document.getElementById("btn" + time_span_counter + day_counter).innerHTML = 'X';
+                document.getElementById("cell" + time_span_counter + day_counter).style = 'background-color: grey';
             }
             else if(server_data[i - 1].apartment_nb != null){
-                document.getElementById("btn" + time + day).style = 'visibility: hidden;';
-                document.getElementById("cell" + time + day).style = 'background-color: grey';
+                document.getElementById("btn" + time_span_counter + day_counter).style = 'visibility: hidden;';
+                document.getElementById("cell" + time_span_counter + day_counter).style = 'background-color: grey';
             }
             
-            time++;
+            time_span_counter++;
             if(i % 4 == 0){
-                day++;
-                time = 1;
+                day_counter++;
+                time_span_counter = 1;
             }
         }
     }
@@ -465,7 +464,6 @@
 
         function modifyConfWindow(id) {
             currentid = id;
-            console.log("current id:", currentid);
 
             let btnId = 'btn' + currentid; //need these 2 rows to know what 
             let cellid = 'cell' + currentid; //the if-else talks about
@@ -474,8 +472,6 @@
             var secondDigit = String(id)[1];
 
             console.log("Pressed button id:", id);
-            console.log("First digit:", firstDigit);
-            console.log("Second digit:", secondDigit);
 
             var timeSpan;
             var day;
@@ -528,7 +524,7 @@
                     break;
 
             }
-            //display date and time + put hiden data in form
+            //display date and time + put hidden data in form
             document.getElementById('ConfirmTime').innerHTML = document.getElementById('inputConfirmTime').value = timeSpan +" den "  + day;
             document.getElementById('apNr').value = document.cookie[5] + document.cookie[6] + document.cookie[7] + document.cookie[8];
             document.getElementById('confirm').style.display = 'block';
